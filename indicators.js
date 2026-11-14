@@ -1,4 +1,3 @@
-
 /*
  * indicators.js
  * NASA Space Apps Challenge - Astronaut Health Monitor
