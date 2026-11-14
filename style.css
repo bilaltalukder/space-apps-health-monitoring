@@ -1,0 +1,235 @@
+
+/* =================================
+   MISSION HEALTH - GLOBAL STYLING
+================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+:root {
+    --background: #080d18;
+    --surface: #111a2b;
+    --surface-light: #19253a;
+    --border: #26364e;
+    --text: #edf4ff;
+    --muted: #91a2bb;
+    --cyan: #55d9ed;
+    --green: #36d69a;
+    --yellow: #f4c45d;
+    --red: #ff647c;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: var(--background);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    min-height: 100vh;
+}
+
+/* HEADER */
+
+header {
+    padding: 28px 6%;
+    border-bottom: 1px solid var(--border);
+    background: #0c1422;
+}
+
+header h1 {
+    font-size: 26px;
+    font-weight: 800;
+    letter-spacing: 4px;
+    color: var(--cyan);
+}
+
+header p {
+    color: var(--muted);
+    font-size: 11px;
+    letter-spacing: 2px;
+    margin-top: 7px;
+}
+
+/* MAIN DASHBOARD */
+
+main {
+    width: 88%;
+    max-width: 1400px;
+    margin: 45px auto;
+}
+
+section {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 30px;
+}
+
+section h2 {
+    font-size: 23px;
+    margin-bottom: 15px;
+}
+
+section p {
+    color: var(--muted);
+    line-height: 1.7;
+}
+
+/* FOOTER */
+
+footer {
+    text-align: center;
+    padding: 25px;
+    color: var(--muted);
+    font-size: 12px;
+    border-top: 1px solid var(--border);
+    margin-top: 80px;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 700px) {
+    main {
+        width: 94%;
+        margin: 25px auto;
+    }
+
+    section {
+        padding: 20px;
+    }
+
+    header {
+        padding: 22px 5%;
+    }
+}
+
+
+
+/* =================================
+   DASHBOARD COMPONENTS
+================================= */
+
+.dashboard-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.eyebrow {
+    color: var(--cyan);
+    font-size: 11px;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+}
+
+.dashboard-heading h2 {
+    font-size: 28px;
+    margin-bottom: 8px;
+}
+
+.mission-status {
+    color: var(--green);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    white-space: nowrap;
+}
+
+.status-dot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    background: var(--green);
+    border-radius: 50%;
+    margin-right: 7px;
+}
+
+.summary-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+    margin-top: 25px;
+}
+
+.indicator-card {
+    background: var(--surface-light);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--green);
+    border-radius: 10px;
+    padding: 22px;
+}
+
+.indicator-card.yellow {
+    border-left-color: var(--yellow);
+}
+
+.indicator-card.red {
+    border-left-color: var(--red);
+}
+
+.card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+}
+
+.card-top h3 {
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.status-pill {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: var(--green);
+    background: rgba(54, 214, 154, 0.12);
+    padding: 5px 8px;
+    border-radius: 20px;
+}
+
+.yellow .status-pill {
+    color: var(--yellow);
+    background: rgba(244, 196, 93, 0.12);
+}
+
+.red .status-pill {
+    color: var(--red);
+    background: rgba(255, 100, 124, 0.12);
+}
+
+.reading {
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--text);
+    margin-top: 22px;
+}
+
+.reading span {
+    font-size: 12px;
+    font-weight: 400;
+    color: var(--muted);
+}
+
+@media (max-width: 900px) {
+    .summary-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .summary-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .dashboard-heading {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+}
