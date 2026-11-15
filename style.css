@@ -233,3 +233,331 @@ footer {
         flex-direction: column;
     }
 }
+
+
+/* ==========================================
+   DAILY HEALTH CHECK-IN
+========================================== */
+
+.daily-checkin-section {
+    margin-top: 28px;
+}
+
+.checkin-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
+    margin-top: 25px;
+}
+
+.checkin-field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.checkin-field label {
+    color: var(--text);
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.checkin-field input {
+    width: 100%;
+    padding: 13px;
+    background: var(--surface-light);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text);
+    font-family: inherit;
+    font-size: 14px;
+    outline: none;
+}
+
+.checkin-field input:focus,
+.symptoms-section textarea:focus {
+    border-color: var(--cyan);
+}
+
+.checkin-field small {
+    color: var(--muted);
+    font-size: 11px;
+}
+
+.checkin-submit {
+    margin-top: 24px;
+    padding: 14px 24px;
+    background: var(--cyan);
+    color: #080d18;
+    border: none;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+
+.checkin-submit:hover {
+    opacity: 0.85;
+}
+
+.checkin-message {
+    margin-top: 18px;
+    padding: 15px;
+    border-radius: 8px;
+    background: var(--surface-light);
+    color: var(--green);
+    font-size: 13px;
+}
+
+@media(max-width: 600px) {
+    .checkin-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ==========================================
+   MISSION HEALTH - TREND CHART STYLING
+========================================== */
+
+.trends-section {
+    margin-top: 28px;
+}
+
+.charts-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+    margin-top: 25px;
+}
+
+.chart-card {
+    background: var(--surface-light);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 22px;
+    min-width: 0;
+}
+
+.chart-card h3 {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 18px;
+}
+
+.chart-container {
+    position: relative;
+    height: 260px;
+    width: 100%;
+}
+
+@media (max-width: 700px) {
+    .charts-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .chart-container {
+        height: 230px;
+    }
+}
+
+/* ==========================================
+   ASTRONAUT BODY MAP
+========================================== */
+
+.body-map-section {
+    margin-top: 32px;
+}
+
+.body-map-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 28px;
+    align-items: center;
+    margin-top: 24px;
+}
+
+.body-map {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    padding: 28px;
+    background: var(--surface-light);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+}
+
+.body-region {
+    width: 180px;
+    padding: 12px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--surface);
+    color: var(--text);
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.body-region:hover {
+    border-color: #55d9ed;
+    background: rgba(85, 217, 237, 0.12);
+}
+
+.body-region:focus-visible {
+    outline: 2px solid #55d9ed;
+    outline-offset: 3px;
+}
+
+#body-map-details {
+    min-height: 220px;
+    padding: 24px;
+    background: var(--surface-light);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+}
+
+#body-map-details h3 {
+    margin-bottom: 18px;
+}
+
+#body-map-details p {
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+}
+
+@media (max-width: 700px) {
+    .body-map-layout {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ==========================================
+   ASTRONAUT BODY FIGURE
+========================================== */
+
+.body-map-figure {
+    position: relative;
+    min-height: 590px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.astronaut-silhouette {
+    width: 270px;
+    max-width: 100%;
+    height: auto;
+    filter: drop-shadow(0 0 15px rgba(85, 217, 237, 0.15));
+}
+
+
+.body-map-figure .body-region {
+    position: absolute;
+    width: 100px;
+    padding: 8px;
+    z-index: 2;
+    background: rgba(17, 26, 43, 0.95);
+}
+
+/* Alternate buttons around the astronaut */
+.body-region-head {
+    top: 7%;
+    right: 3%;
+}
+
+.body-region-chest {
+    top: 30%;
+    left: 3%;
+}
+
+.body-region-abdomen {
+    top: 46%;
+    right: 3%;
+}
+
+.body-region-muscles {
+    top: 68%;
+    left: 3%;
+}
+
+.body-region-bones {
+    top: 80%;
+    right: 3%;
+}
+
+
+.body-map-figure .body-region:hover {
+    border-color: #55d9ed;
+    box-shadow: 0 0 14px rgba(85, 217, 237, 0.3);
+}
+
+@media (max-width: 700px) {
+    .body-map-figure {
+        min-height: 540px;
+    }
+
+    .body-map-figure .body-region {
+        width: 95px;
+        font-size: 12px;
+    }
+}
+
+/* Selected astronaut body region */
+.body-region.active {
+    border-color: #55d9ed;
+    background: rgba(85, 217, 237, 0.2);
+    box-shadow: 0 0 16px rgba(85, 217, 237, 0.45);
+    color: #ffffff;
+}
+
+/* CHECK-IN HISTORY STATUS COLOURS */
+
+.history-card .status-pill.status-green {
+    background: #173f32;
+    color: #65e6a5;
+}
+
+.history-card .status-pill.status-yellow {
+    background: #493b19;
+    color: #ffd166;
+}
+
+.history-card .status-pill.status-red {
+    background: #4b2028;
+    color: #ff7885;
+}
+
+/* Expandable history details */
+
+.history-card {
+    margin-bottom: 12px;
+}
+
+.history-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    cursor: pointer;
+    list-style: none;
+}
+
+.history-card-header::-webkit-details-marker {
+    display: none;
+}
+
+.history-card-header h3 {
+    margin: 0;
+}
+
+.history-expand-hint {
+    font-size: 0.8rem;
+    opacity: 0.65;
+}
+
+.history-card-details {
+    padding: 12px 4px;
+}
