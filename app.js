@@ -27,6 +27,7 @@ let history = [...seedData, ...savedCheckins];
 let currentDay = history[history.length - 1];
 let historyPage = 0;
 const HISTORY_PAGE_SIZE = 10;
+let isEditingCheckin = false;
 
 // ------------------------------------------
 // HELPER FUNCTIONS
@@ -36,6 +37,8 @@ function getWorstMeasurementStatus(dayData) {
     const statuses = getDayStatuses(dayData);
     return worstStatus(Object.values(statuses));
 }
+
+
 function submitDailyCheckin(event) {
     event.preventDefault();
 
@@ -51,7 +54,7 @@ function submitDailyCheckin(event) {
     ];
 
     const newCheckin = {
-        day: currentDay.day + 1
+        day: isEditingCheckin ? currentDay.day : currentDay.day + 1
     };
 
     for (const field of fields) {
@@ -65,11 +68,55 @@ function submitDailyCheckin(event) {
         return;
     }
 
-    history.push(newCheckin);
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(history.slice(seedData.length)));
+    if (isEditingCheckin) {
+        history[history.length - 1] = newCheckin;
+    } else {
+        history.push(newCheckin);
+    }
+
+    localStorage.setItem(
+        STORAGE_KEY,
+        JSON.stringify(history.slice(seedData.length))
+    );
 
     currentDay = newCheckin;
+    isEditingCheckin = false;
 
+    renderDashboard();
+}
+
+
+function startEditingCheckin() {
+    const fields = [
+        "heartRate",
+        "systolic",
+        "diastolic",
+        "glucose",
+        "temperature",
+        "sleep",
+        "mood",
+        "exercise"
+    ];
+
+    isEditingCheckin = true;
+
+    fields.forEach(field => {
+        document.getElementById(`checkin-${field}`).value =
+            currentDay[field];
+    });
+
+    document.querySelector(".checkin-submit").textContent =
+        "SAVE CHANGES";
+
+    document.getElementById("checkin-message").textContent =
+        "Editing today's check-in. Your simulation day will not advance.";
+
+        document.getElementById("cancel-edit-button").style.display =
+        "inline-block";
+}
+
+function cancelEditingCheckin() {
+    isEditingCheckin = false;
     renderDashboard();
 }
 
@@ -388,6 +435,9 @@ function renderCheckinForm() {
         <section class="daily-checkin-section">
             <p class="eyebrow">DAILY CREW REPORT</p>
             <h2>Daily Health Check-in</h2>
+            <button type="button" id="edit-checkin-button">
+             EDIT TODAY'S CHECK-IN
+            </button>
             <p>Enter the astronaut's latest health measurements.</p>
 
             <form id="daily-checkin-form">
@@ -437,6 +487,10 @@ function renderCheckinForm() {
 
                 <button type="submit" class="checkin-submit">
                     SUBMIT CHECK-IN
+                </button>
+
+                <button type="button" id="cancel-edit-button" style="display: none;">
+                CANCEL EDIT
                 </button>
 
                 <div id="checkin-message" aria-live="polite"></div>
@@ -862,6 +916,14 @@ container.appendChild(item);
         .addEventListener("click", analyzeDailySymptoms);
 
     document
+    .getElementById("edit-checkin-button")
+    .addEventListener("click", startEditingCheckin);
+
+    document
+    .getElementById("cancel-edit-button")
+    .addEventListener("click", cancelEditingCheckin);
+    
+     document
     .getElementById("daily-checkin-form")
     .addEventListener("submit", submitDailyCheckin);
 }
