@@ -64,13 +64,27 @@ function worstStatus(statusList) {
 // These numbers are a simple choice. Change them if you like.
 function getOverallScore(dayData) {
   const statuses = getDayStatuses(dayData);
+
   let score = 100;
+
+  // Count blood pressure as one combined measurement.
+  const bloodPressureStatus = worstStatus([
+    statuses.systolic,
+    statuses.diastolic
+  ]);
+
+  if (bloodPressureStatus === "yellow") score -= 5;
+  if (bloodPressureStatus === "red") score -= 12;
+
+  // Score all remaining indicators individually.
   for (const id in statuses) {
+    if (id === "systolic" || id === "diastolic") continue;
+
     if (statuses[id] === "yellow") score -= 5;
     if (statuses[id] === "red") score -= 12;
   }
-  if (score < 0) score = 0;
-  return score;
+
+  return Math.max(0, score);
 }
 
 // Do the last `n` entries in `history` ALL pass `test` for this key?
@@ -122,7 +136,7 @@ function runRulesSelfTest() {
   check("heart rate 100 is yellow", getStatus(hr, 100), "yellow");
   check("heart rate 130 is red", getStatus(hr, 130), "red");
   check("heart rate missing is unknown", getStatus(hr, undefined), "unknown");
-  check("day 1 score is 100", getOverallScore(seedData[0]), 100);
+  check("day 1 score is 95", getOverallScore(seedData[0]), 95);
   check("day 5 has no alerts", getTrendAlerts(seedData.slice(0, 5)).length, 0);
   check("day 12 has 1 alert (sleep)", getTrendAlerts(seedData.slice(0, 12)).length, 1);
   check("day 14 has 2 alerts (sleep + mood)", getTrendAlerts(seedData.slice(0, 14)).length, 2);
