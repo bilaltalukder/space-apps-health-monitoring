@@ -25,6 +25,8 @@ let savedCheckins = JSON.parse(
 let history = [...seedData, ...savedCheckins];
 
 let currentDay = history[history.length - 1];
+let historyPage = 0;
+const HISTORY_PAGE_SIZE = 10;
 
 // ------------------------------------------
 // HELPER FUNCTIONS
@@ -150,7 +152,15 @@ function renderTrendAlerts() {
 // ------------------------------------------
 
 function renderCheckinHistory() {
-    return history.slice().reverse().map(day => {
+    const totalPages = Math.ceil(history.length / HISTORY_PAGE_SIZE);
+
+    const start = historyPage * HISTORY_PAGE_SIZE;
+    const pageHistory = history
+        .slice()
+        .reverse()
+        .slice(start, start + HISTORY_PAGE_SIZE);
+
+    const entries = pageHistory.map(day => {
         const score = getOverallScore(day);
         const status = getWorstMeasurementStatus(day);
 
@@ -190,6 +200,27 @@ function renderCheckinHistory() {
             </details>
         `;
     }).join("");
+
+    return `
+        ${entries}
+
+        <div class="history-pagination">
+            <p>
+                Showing ${history.length - start - pageHistory.length + 1}
+                –${history.length - start} of ${history.length} days
+            </p>
+
+            <button id="history-previous" ${historyPage === 0 ? "disabled" : ""}>
+                PREVIOUS
+            </button>
+
+            <span>Page ${historyPage + 1} of ${totalPages}</span>
+
+            <button id="history-next" ${historyPage >= totalPages - 1 ? "disabled" : ""}>
+                NEXT
+            </button>
+        </div>
+    `;
 }
 
 // ------------------------------------------
@@ -756,6 +787,26 @@ document.querySelectorAll("[data-indicator-id]").forEach(card => {
 const generateReportButton = document.getElementById("generate-ground-report");
 
 generateReportButton.addEventListener("click", generateGroundReport);
+
+// Check-in history pagination
+const previousHistoryButton = document.getElementById("history-previous");
+const nextHistoryButton = document.getElementById("history-next");
+
+previousHistoryButton.addEventListener("click", () => {
+    if (historyPage > 0) {
+        historyPage--;
+        renderDashboard();
+    }
+});
+
+nextHistoryButton.addEventListener("click", () => {
+    const totalPages = Math.ceil(history.length / HISTORY_PAGE_SIZE);
+
+    if (historyPage < totalPages - 1) {
+        historyPage++;
+        renderDashboard();
+    }
+});
 
 // Connect body-map regions to their health indicators.
 document.querySelectorAll(".body-region").forEach(button => {
