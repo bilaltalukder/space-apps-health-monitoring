@@ -9,9 +9,9 @@ The project follows a simple workflow: **GATHER → EVALUATE → ACT**. It colle
 
 ## Project Links
 
-- **Live Application:** [Add your deployed website link]
-- **Demonstration Video:** [Add your demonstration video link]
-- **Team Name:** [Add your team name]
+- **Live Application:** (https://bilaltalukder.github.io/space-apps-health-monitoring/)
+- **Demonstration Video:** (https://www.youtube.com/watch?v=AD91C-7wUpE)
+- **Team Name:** Lancer Larpers
 
 ## The Problem
 
