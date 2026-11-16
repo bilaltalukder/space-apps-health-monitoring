@@ -14,6 +14,7 @@ if (
 }
 
 const dashboard = document.getElementById("dashboard");
+let astronautName = localStorage.getItem("missionAstronautName") || "Alex Morgan";
 
 // Use the latest day in our 21-day astronaut simulation.
 const STORAGE_KEY = "missionHealthCheckins";
@@ -363,7 +364,7 @@ function generateGroundReport() {
         "MISSION HEALTH REPORT",
         "NASA SPACE APPS - ASTRONAUT HEALTH MONITOR",
         "------------------------------------------",
-        "Astronaut: Alex Morgan",
+        `Astronaut: ${astronautName || "Unnamed Astronaut"}`,
         `Simulation Day: ${currentDay.day} of ${history.length}`,
         `Mission Health Score: ${getOverallScore(currentDay)}/100`,
         `Overall Status: ${getWorstMeasurementStatus(currentDay).toUpperCase()}`,
@@ -511,8 +512,16 @@ function renderDashboard() {
         <div class="dashboard-heading">
             <div>
                 <p class="eyebrow">FLIGHT STATUS / SIMULATION</p>
-                <h2>Mission Overview</h2>
-                <p>Live health telemetry for astronaut Alex Morgan</p>
+                <h2>Crew Health Status</h2>
+                <div class="astronaut-name-field">
+    <label for="astronaut-name-input">Astronaut Name:</label>
+    <input
+                type="text"
+                id="astronaut-name-input"
+                value="${astronautName}"
+                placeholder="Enter astronaut name"
+    >
+                </div>
                 <p>Simulation Day ${currentDay.day} of ${history.length}</p>
             </div>
 
@@ -926,6 +935,13 @@ container.appendChild(item);
      document
     .getElementById("daily-checkin-form")
     .addEventListener("submit", submitDailyCheckin);
+
+    document
+    .getElementById("astronaut-name-input")
+    .addEventListener("input", (event) => {
+        astronautName = event.target.value.trim();
+        localStorage.setItem("missionAstronautName", astronautName);
+    });
 }
 
 // ------------------------------------------
